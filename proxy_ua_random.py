@@ -3,7 +3,7 @@ import requests
 
 import urllib3
 from urllib3.exceptions import InsecureRequestWarning
-urllib3.disable_warnings(category=InsecureRequestWarning)
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 user_agents = [
 	'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.3', # Chrome, Windows
@@ -20,8 +20,10 @@ https_proxy_list = ['https://192.168.1.100:8080','https://192.168.1.101:8080','h
 url = 'https://aliasinfosec.com'
 
 while True:
-    
-    user_agent = random.choice(user_agents)
-    proxies = {'https': random.choice(https_proxy_list)}
+	
+	user_agent = random.choice(user_agents)
+	proxies = {'https': random.choice(https_proxy_list)}
 
-    _r = requests.get(url, proxies=proxies, headers={'User-agent' : user_agent }, verify=False)
+	# Print paramters instead of making actual request.
+	print(f"[*] Connecting to {url}: [UA] {user_agent} [PROXY] {proxies['https']}")
+	#_r = requests.get(url, proxies=proxies, headers={'User-agent' : user_agent }, verify=False)
