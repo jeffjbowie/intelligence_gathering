@@ -9,3 +9,4 @@ requests==2.24.0
 selenium==3.141.0
 soupsieve==2.0.1
 urllib3==1.25.10
+texttable==1.6.3
