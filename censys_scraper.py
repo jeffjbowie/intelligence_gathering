@@ -10,11 +10,14 @@ def get_sleepy():
     time.sleep(random.uniform(0.5,1.5))
 
 if len(sys.argv) < 2:
-    print("Usage: {sys.argv[0] <IP_List.txt>")
+    print(f"Usage: {sys.argv[0]} <IP_Address>")
     sys.exit(0)
 
 
-browser = webdriver.Chrome()
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless")
+
+browser = webdriver.Chrome(chrome_options = chrome_options)
 browser.get('https://censys.io')
 get_sleepy()
 
