@@ -7,6 +7,10 @@ import random
 from bs4 import BeautifulSoup
 import sys
 import pdb
+import string
+
+
+
 
 def extract(source):
 	soup = BeautifulSoup(source, "html.parser")
@@ -17,25 +21,24 @@ def extract(source):
 	
 	return content
 
-def random_int_scrape(word):
+def random_scrape():
 
 
-	random_int = str(int(random.random() * random.randint(1,9999)))
-	url = f"https://cl1p.net/{word+random_int}"
+	_random_str = ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(random.randint(3,37)))
+	url = f"https://cl1p.net/{_random_str}"
 	browser.get(url)
 	
 	try:
 		browser.find_element_by_id('content')
 	except NoSuchElementException:
 		
-
 		result = extract(browser.page_source)
 		if result:
 			output_f.write("*******************************\n")
-			output_f.write(f"{time.ctime()}\n{word}\n\n{result}\n\n")
+			output_f.write(f"{time.ctime()}\n{_random_str}\n\n{result}\n\n")
 			
 			print("*******************************")
-			print(f"[{time.ctime()}\n{word}\n\n{result}\n\n")
+			print(f"[{time.ctime()}\n{_random_str}\n\n{result}\n\n")
 
 
 def plain_scrape(word):
@@ -73,7 +76,11 @@ print(r"""
 		>>> * Created by Jeff Bowie  github.com/jeffjbowie * <<<
 """)
 
-browser = webdriver.Chrome()
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
+browser = webdriver.Chrome(options=chrome_options)
+
 print("\n\n")
 
 f = open(sys.argv[1], 'r')
@@ -90,7 +97,7 @@ try:
 			plain_scrape(line.strip())
 			time.sleep(random.uniform(0.9,1.8))
 			
-			random_int_scrape(line.strip())
+			random_scrape()
 			time.sleep(random.uniform(0.9,1.8))
 		
 		print("*******************************")
@@ -101,7 +108,8 @@ try:
 
 		f.seek(0)
 
-except Exception:
+except Exception as e:
+		print(f"Error: {e}")
 		output_f.close()
 		print("\nBye...")
 		browser.quit()
