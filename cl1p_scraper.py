@@ -83,7 +83,7 @@ browser = webdriver.Chrome(options=chrome_options)
 
 print("\n\n")
 
-f = open(sys.argv[1], 'r')
+f = open(sys.argv[1], 'r', encoding='utf-8')
 sleep_time = 15
 
 output_filename = sys.argv[2]
