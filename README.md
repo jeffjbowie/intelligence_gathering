@@ -1,5 +1,5 @@
 # Async Intelligence Gathering w/ Python
-
+https://www.youtube.com/watch?v=9PN0m1gDtog
 
 A collection of scripts for the purpose of gathering open source intelligence. 
 
